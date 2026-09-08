@@ -1,0 +1,71 @@
+# ============================================================
+#  ServiceDesk Lab — .gitignore
+#  Regle d'or : ce depot est PUBLIC. Dans le doute, on ignore.
+# ============================================================
+
+# ---------- 1. SECRETS — ne doivent JAMAIS partir ----------
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+*.pem
+*.cer
+*.crt
+credentials.xml
+*.cred
+*.credential
+secrets.json
+appsettings.Development.json
+unattend.xml
+autounattend.xml
+
+# ---------- 2. DONNEES REELLES DE MACHINE ----------
+# Sorties de collecte : contiennent nom de poste, IP, series, sessions
+collect-*/
+support-report-*/
+inventaire-reel/
+*.evtx
+
+# ---------- 3. FICHIERS VOLUMINEUX — jamais dans Git ----------
+*.iso
+*.vhd
+*.vhdx
+*.avhdx
+*.vmcx
+*.vmrs
+*.wim
+*.esd
+*.img
+
+# ---------- 4. SORTIES GENEREES ----------
+# reports/ contient des EXEMPLES versionnes ; les sorties reelles non
+reports/output/
+logs/
+*.log
+*.tmp
+temp/
+
+# ---------- 5. .NET / Visual Studio ----------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+.vs/
+*.user
+*.suo
+*.userprefs
+publish/
+
+# ---------- 6. WINDOWS / EDITEURS ----------
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.swp
+*~
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

@@ -24,7 +24,7 @@ Conséquences directes sur le projet :
 | Automatisation PowerShell | ★★ | Différenciateur fort à ce niveau de salaire |
 | Application graphique C# | ★ | Effet « waouh », mais NE DOIT PAS manger le budget temps |
 
-**Avertissement de lead dev** : le risque n°1 de ce projet est de passer 80 % du temps sur l'application WPF (la partie amusante) et d'arriver à l'entretien sans savoir déverrouiller un compte AD. Econocom recrute un technicien Service Desk, pas un développeur .NET. L'app est le bonus qui fait la différence *à compétences support égales*. La roadmap ci-dessous impose donc l'ordre : **lab → gestes métier → tickets → automatisation → app**.
+**Le piège principal à éviter** : le risque n°1 de ce projet est de passer 80 % du temps sur l'application WPF (la partie amusante) et d'arriver à l'entretien sans savoir déverrouiller un compte AD. Econocom recrute un technicien Service Desk, pas un développeur .NET. L'app est le bonus qui fait la différence *à compétences support égales*. La roadmap ci-dessous impose donc l'ordre : **lab → gestes métier → tickets → automatisation → app**.
 
 Contexte employeur : Econocom est une ESN / société d'infogérance. Un Service Desk N1 chez eux = centre de services mutualisé, respect de SLA contractuels, outil de ticketing imposé (GLPI, EasyVista ou ServiceNow), process ITIL, escalade vers N2. Le projet doit refléter ça, pas un bricolage perso.
 
@@ -247,7 +247,7 @@ ServiceDesk-Lab/
 ├── scenarios/
 │   └── 001-pas-internet/
 │       ├── README.md          <- version ETUDIANT (enonce seul)
-│       ├── SOLUTION.md        <- version FORMATEUR
+│       ├── SOLUTION.md        <- corrige detaille
 │       ├── break.ps1          <- provoque la panne
 │       ├── restore.ps1        <- remet en etat
 │       └── ticket-INC-0001.md
@@ -349,22 +349,24 @@ Critère de décision, appliqué systématiquement : *utile au technicien Servic
 
 ---
 
-## 10. Méthode de travail (contrat pédagogique)
+## 10. Méthode d'apprentissage
 
 Pour chaque module, dans cet ordre :
 
-1. **Concept** — ce que c'est, en français simple
-2. **Pourquoi en Service Desk** — le lien avec un appel utilisateur réel
-3. **Exercice** — un objectif, pas une marche à suivre
-4. **Vous essayez seul**
-5. **Indices** progressifs si vous bloquez (jamais la réponse directement)
-6. **Solution commentée**
-7. **Documentation** — vous rédigez la procédure, je relis
+1. **Concept** — comprendre le mécanisme, en français simple
+2. **Pourquoi en Service Desk** — faire le lien avec un appel utilisateur réel
+3. **Exercice** — se fixer un objectif, pas suivre une marche à suivre
+4. **Mise en pratique sans aide**
+5. **Recherche documentaire** en cas de blocage, avant toute solution toute faite
+6. **Comparaison avec la solution de référence**
+7. **Rédaction de la procédure** dans `docs/procedures/`
+
+Un module n'est acquis que lorsque la procédure est écrite et rejouable de mémoire.
 
 Et pour chaque incident, la méthodologie en 11 étapes : comprendre → reproduire → collecter → identifier les symptômes → émettre des hypothèses → tester → identifier la cause → corriger → retester → documenter → clôturer.
 
 ---
 
-## Validation
+## Statut
 
-Ce document doit être validé avant le démarrage de la phase 1.
+Document de cadrage figé avant le démarrage de la phase 1. Toute évolution d'architecture décidée en cours de projet est reportée ici et tracée dans `CHANGELOG.md`.
