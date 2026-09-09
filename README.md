@@ -96,7 +96,7 @@ comprendre -> reproduire -> collecter -> identifier les symptomes -> emettre des
 ## Avancement
 
 - [x] **Phase 0** — Analyse et architecture
-- [ ] **Phase 1** — Mise en place du HomeLab
+- [x] **Phase 1** — Mise en place du HomeLab *(réseau virtuel + NAT, 4 VMs provisionnées)*
 - [ ] **Phase 2** — Windows Server + Active Directory
 - [ ] **Phase 3** — Postes clients Windows 11
 - [ ] **Phase 4** — Réseau, partages, impression

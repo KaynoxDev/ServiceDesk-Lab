@@ -50,6 +50,19 @@ slmgr /xpr      # date d'expiration
 
 **Principe directeur** : le lab doit rester **reconstructible par script**. Si une évaluation expire, on ne doit pas perdre le travail — les scripts de `powershell/lab-setup/` et les procédures de `docs/procedures/` permettent de tout remonter.
 
+## Machines virtuelles provisionnées
+
+Créées le 2026-09-09 par [`New-SDLabVM.ps1`](../../powershell/lab-setup/New-SDLabVM.ps1).
+Génération 2, disques dynamiques, commutateur `LAB-Internal`, démarrage automatique désactivé,
+instantanés automatiques désactivés, type d'instantané *Production*.
+
+| VM | vCPU | RAM min / dém. / max | Disque | TPM | Modèle Secure Boot | OS installé |
+|---|---|---|---|---|---|---|
+| DC01 | 2 | 1 / 2 / 4 Go | 60 Go | Oui | `MicrosoftWindows` | ⬜ |
+| CLI01 | 2 | 1 / 4 / 6 Go | 60 Go | Oui | `MicrosoftWindows` | ⬜ |
+| CLI02 | 2 | 1 / 4 / 6 Go | 60 Go | Oui | `MicrosoftWindows` | ⬜ |
+| SRV-LNX01 | 2 | 0,5 / 1,5 / 2 Go | 20 Go | Non | `MicrosoftUEFICertificateAuthority` | ⬜ |
+
 ## Plan d'adressage
 
 | Machine | Rôle | IP | Attribution |
