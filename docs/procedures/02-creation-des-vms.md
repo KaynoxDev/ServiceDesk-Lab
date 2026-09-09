@@ -153,13 +153,50 @@ suivant et la VM s'arrête sur un disque vide.
 
 ---
 
-## Règle d'exploitation — profils d'exécution
+## Exploitation quotidienne — démarrer et arrêter le lab
 
 L'hôte dispose de 16 Go. **Ne jamais démarrer les quatre VMs simultanément.**
 
 | Profil | VMs | RAM | Usage |
 |---|---|---|---|
-| A — quotidien | DC01 + CLI01 | ~6,5 Go | 90 % du travail |
-| B — multi-postes | DC01 + CLI01 + CLI02 | ~10 Go | GPO, droits, comparaisons |
-| C — ticketing | DC01 + CLI01 + SRV-LNX01 | ~8 Go | GLPI |
+| `DC` | DC01 seul | ~2 Go | Travail sur l'annuaire |
+| `A` — quotidien | DC01 + CLI01 | ~6,5 Go | 90 % du travail |
+| `B` — multi-postes | DC01 + CLI01 + CLI02 | ~10 Go | GPO, droits, comparaisons |
+| `C` — ticketing | DC01 + CLI01 + SRV-LNX01 | ~8 Go | GLPI |
 | ✗ interdit | les quatre | ~12 Go + hôte | Swap, lab inutilisable |
+
+Deux scripts appliquent cette règle :
+
+```powershell
+# Demarrer
+.\Start-SDLab.ps1                    # profil A : DC01 puis CLI01
+.\Start-SDLab.ps1 -LabProfile DC     # DC01 seul
+.\Start-SDLab.ps1 -LabProfile C      # DC01 + CLI01 + GLPI
+
+# Arreter
+.\Stop-SDLab.ps1                     # arret gracieux de toutes les VMs
+.\Stop-SDLab.ps1 -VMName CLI01       # une seule VM
+```
+
+[`Start-SDLab.ps1`](../../powershell/lab-setup/Start-SDLab.ps1) refuse de démarrer si la RAM
+disponible est insuffisante, et **démarre toujours DC01 en premier** en attendant sa pulsation
+avant de lancer les clients. Raison : un client qui démarre sans contrôleur de domaine disponible
+ouvre une session avec des **informations d'identification mises en cache** au lieu d'une vraie
+authentification — ce qui fausserait tous vos diagnostics.
+
+### Arrêter une VM : trois méthodes, une seule correcte
+
+| Méthode | Effet | Verdict sur un contrôleur de domaine |
+|---|---|---|
+| `Stop-VM` | Arrêt propre via le composant d'intégration *Arrêt* | ✅ **La seule correcte** |
+| `Save-VM` | Écrit la RAM sur disque, comme une veille prolongée | ❌ Fige la mémoire ; au réveil l'horloge a dérivé et AD peut se désynchroniser |
+| `Stop-VM -TurnOff` | Coupe l'alimentation virtuelle | ❌ Risque de corruption de `NTDS.dit` |
+
+**Un contrôleur de domaine ne se met jamais en veille et ne se coupe jamais brutalement.** La base
+Active Directory est transactionnelle : l'arrêter sauvagement équivaut à débrancher un serveur SQL.
+
+### Ce qui continue de tourner après l'arrêt des VMs
+
+Rien de significatif. Le commutateur virtuel, le NAT et le service `vmms` consomment quelques
+dizaines de mégaoctets. **Ne jamais démonter le réseau du lab pour un arrêt quotidien** :
+`Remove-SDLabNetwork.ps1` sert à repartir propre après un problème, pas à éteindre le lab.
